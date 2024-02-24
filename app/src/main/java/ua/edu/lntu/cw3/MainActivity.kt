@@ -31,24 +31,15 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ControlWork3Theme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    GalleryItemList(galleryItemList = Datasource().loadGallery())
                 }
             }
         }
     }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
 }
 
 @Composable
@@ -60,7 +51,7 @@ fun GalleryItemCard(galleryItem: GalleryItem, modifier: Modifier = Modifier) {
                 contentDescription = stringResource(id = galleryItem.stringResourceId),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(200.dp),
+                    .height(400.dp),
                 contentScale = ContentScale.Crop
             )
             Text (
@@ -86,7 +77,7 @@ fun GalleryItemList(galleryItemList: List<GalleryItem>, modifier: Modifier = Mod
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun GreetingPreview() {
+fun GalleryPreview() {
     ControlWork3Theme {
         GalleryItemList(galleryItemList = Datasource().loadGallery())
     }

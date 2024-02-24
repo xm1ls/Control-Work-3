@@ -8,6 +8,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -19,6 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import ua.edu.lntu.cw3.data.Datasource
 import ua.edu.lntu.cw3.model.GalleryItem
 import ua.edu.lntu.cw3.ui.theme.ControlWork3Theme
 
@@ -59,6 +63,23 @@ fun GalleryItemCard(galleryItem: GalleryItem, modifier: Modifier = Modifier) {
                     .height(200.dp),
                 contentScale = ContentScale.Crop
             )
+            Text (
+                text = stringResource(id = galleryItem.stringResourceId),
+                modifier = Modifier.padding(8.dp),
+                style = MaterialTheme.typography.headlineSmall
+            )
+        }
+    }
+}
+
+@Composable
+fun GalleryItemList(galleryItemList: List<GalleryItem>, modifier: Modifier = Modifier) {
+    LazyColumn(modifier = modifier) {
+        items(galleryItemList) {
+            galleryItem -> GalleryItemCard(
+                galleryItem = galleryItem,
+                modifier = Modifier.padding(8.dp)
+                )
         }
     }
 }
@@ -67,6 +88,6 @@ fun GalleryItemCard(galleryItem: GalleryItem, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     ControlWork3Theme {
-        Greeting("Android")
+        GalleryItemList(galleryItemList = Datasource().loadGallery())
     }
 }
